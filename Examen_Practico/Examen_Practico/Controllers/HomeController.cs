@@ -19,11 +19,26 @@ namespace Examen_Practico.Controllers
 
             return View();
         }
-
+        [Authorize]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+        [Authorize]
+        public ActionResult Asignaturas()
+        {
+            return View();
+        }
+        [Authorize]
+        public ActionResult Agenda()
+        {
+            return View();
+        }
+        [Authorize]
+        public ActionResult Lector()
+        {
             return View();
         }
     }
