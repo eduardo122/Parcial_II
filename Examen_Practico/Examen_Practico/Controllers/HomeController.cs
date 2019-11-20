@@ -31,6 +31,10 @@ namespace Examen_Practico.Controllers
             List<profesor> listaProfesor = sd.profesors.ToList();
             List<imparte> listaImparte = sd.impartes.ToList();
 
+            if (integrante.id == 0 ) {
+                return Redirect("Asignaturas");
+            }
+            else { 
             ViewData["AsignaturasCursadas"] = from cur in listacursa
                                               join i in listaintegrante on cur.id_estudiante equals i.id into table1
                                               from i in table1.DefaultIfEmpty() where i.id == integrante.id
@@ -46,7 +50,7 @@ namespace Examen_Practico.Controllers
 
             return View( ViewData["AsignaturasCursadas"]);
         }
-
+        }
 
 
 
