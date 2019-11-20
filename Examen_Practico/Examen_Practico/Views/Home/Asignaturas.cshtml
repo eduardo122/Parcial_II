@@ -1,7 +1,29 @@
-﻿
+﻿@model Examen_Practico.Models.integrante
 @{
     ViewBag.Title = "Asignaturas";
 }
 
 <h2>Asignaturas</h2>
 
+
+<h1>@ViewBag.Manuel</h1>
+
+@using (Html.BeginForm("Contact", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Seleccione el integrante del grupo</h4>
+    <hr />
+
+   
+    @Html.DropDownListFor(m => m.id, ViewBag.Integrantes as SelectList, "Seleccione el integrante", new { @class = "control-label col-md-2" }) 
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Consultar Asignaturas" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+}

@@ -1,17 +1,30 @@
-﻿@{
-    ViewBag.Title = "Contact";
+﻿
+@{
+    ViewBag.Title = "Asignaturas Cursadas";
 }
 <h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<table border="1">
+    <tr>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+        <th>Integrante</th>
+        <th>Asignatura</th>
+        <th>Total de creditos</th>
+        <th>Profesor</th>
+    </tr>
+    @foreach(var item in ViewData["AsignaturasCursadas"] as IEnumerable<Examen_Practico.Models.AsignaturasCursadas>)
+    {
+    <tr>
+
+        <td>@item.listaIntegrantes.Nombre  @item.listaIntegrantes.Apellido </td>
+        <td>@item.listaAsignaturas.Asignatura1</td>
+        <td>@item.listaAsignaturas.Creditos</td>
+        <td>@item.listaProfesores.Nombre @item.listaProfesores.Apellido</td>
+    </tr>
+
+    }
+
+
+
+
+</table>

@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Examen_ParcialModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Asignatura">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Asignatura" Type="varchar" MaxLength="35" />
+          <Property Name="Creditos" Type="int" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Examen_Parcial.dbo.cursa' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="cursa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_estudiante" Type="int" />
+          <Property Name="id_materia" Type="int" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Examen_Parcial.dbo.imparte' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="imparte">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_profesor" Type="int" />
+          <Property Name="id_materia" Type="int" />
+        </EntityType>
+        <EntityType Name="integrante">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="20" />
+          <Property Name="Apellido" Type="varchar" MaxLength="20" />
+          <Property Name="Matricula" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="profesor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="20" />
+          <Property Name="Apellido" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK__cursa__id_materi__4CA06362">
+          <End Role="integrante" Type="Self.integrante" Multiplicity="0..1" />
+          <End Role="cursa" Type="Self.cursa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="integrante">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="cursa">
+              <PropertyRef Name="id_estudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__cursa__id_materi__4D94879B">
+          <End Role="Asignatura" Type="Self.Asignatura" Multiplicity="0..1" />
+          <End Role="cursa" Type="Self.cursa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asignatura">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="cursa">
+              <PropertyRef Name="id_materia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__imparte__id_mate__49C3F6B7">
+          <End Role="profesor" Type="Self.profesor" Multiplicity="0..1" />
+          <End Role="imparte" Type="Self.imparte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="profesor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="imparte">
+              <PropertyRef Name="id_profesor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__imparte__id_mate__4AB81AF0">
+          <End Role="Asignatura" Type="Self.Asignatura" Multiplicity="0..1" />
+          <End Role="imparte" Type="Self.imparte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asignatura">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="imparte">
+              <PropertyRef Name="id_materia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Examen_ParcialModelStoreContainer">
+          <EntitySet Name="Asignatura" EntityType="Self.Asignatura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="integrante" EntityType="Self.integrante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="profesor" EntityType="Self.profesor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cursa" EntityType="Self.cursa" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [cursa].[id] AS [id], 
+    [cursa].[id_estudiante] AS [id_estudiante], 
+    [cursa].[id_materia] AS [id_materia]
+    FROM [dbo].[cursa] AS [cursa]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="imparte" EntityType="Self.imparte" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [imparte].[id] AS [id], 
+    [imparte].[id_profesor] AS [id_profesor], 
+    [imparte].[id_materia] AS [id_materia]
+    FROM [dbo].[imparte] AS [imparte]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__cursa__id_materi__4CA06362" Association="Self.FK__cursa__id_materi__4CA06362">
+            <End Role="integrante" EntitySet="integrante" />
+            <End Role="cursa" EntitySet="cursa" />
+          </AssociationSet>
+          <AssociationSet Name="FK__cursa__id_materi__4D94879B" Association="Self.FK__cursa__id_materi__4D94879B">
+            <End Role="Asignatura" EntitySet="Asignatura" />
+            <End Role="cursa" EntitySet="cursa" />
+          </AssociationSet>
+          <AssociationSet Name="FK__imparte__id_mate__49C3F6B7" Association="Self.FK__imparte__id_mate__49C3F6B7">
+            <End Role="profesor" EntitySet="profesor" />
+            <End Role="imparte" EntitySet="imparte" />
+          </AssociationSet>
+          <AssociationSet Name="FK__imparte__id_mate__4AB81AF0" Association="Self.FK__imparte__id_mate__4AB81AF0">
+            <End Role="Asignatura" EntitySet="Asignatura" />
+            <End Role="imparte" EntitySet="imparte" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Examen_ParcialModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Asignatura">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Asignatura1" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="Creditos" Type="Int32" />
+          <NavigationProperty Name="cursas" Relationship="Self.FK__cursa__id_materi__4D94879B" FromRole="Asignatura" ToRole="cursa" />
+          <NavigationProperty Name="impartes" Relationship="Self.FK__imparte__id_mate__4AB81AF0" FromRole="Asignatura" ToRole="imparte" />
+        </EntityType>
+        <EntityType Name="integrante">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Apellido" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Matricula" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="cursas" Relationship="Self.FK__cursa__id_materi__4CA06362" FromRole="integrante" ToRole="cursa" />
+        </EntityType>
+        <EntityType Name="profesor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Apellido" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="impartes" Relationship="Self.FK__imparte__id_mate__49C3F6B7" FromRole="profesor" ToRole="imparte" />
+        </EntityType>
+        <EntityType Name="cursa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_estudiante" Type="Int32" />
+          <Property Name="id_materia" Type="Int32" />
+          <NavigationProperty Name="Asignatura" Relationship="Self.FK__cursa__id_materi__4D94879B" FromRole="cursa" ToRole="Asignatura" />
+          <NavigationProperty Name="integrante" Relationship="Self.FK__cursa__id_materi__4CA06362" FromRole="cursa" ToRole="integrante" />
+        </EntityType>
+        <EntityType Name="imparte">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_profesor" Type="Int32" />
+          <Property Name="id_materia" Type="Int32" />
+          <NavigationProperty Name="Asignatura" Relationship="Self.FK__imparte__id_mate__4AB81AF0" FromRole="imparte" ToRole="Asignatura" />
+          <NavigationProperty Name="profesor" Relationship="Self.FK__imparte__id_mate__49C3F6B7" FromRole="imparte" ToRole="profesor" />
+        </EntityType>
+        <Association Name="FK__cursa__id_materi__4D94879B">
+          <End Role="Asignatura" Type="Self.Asignatura" Multiplicity="0..1" />
+          <End Role="cursa" Type="Self.cursa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asignatura">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="cursa">
+              <PropertyRef Name="id_materia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__imparte__id_mate__4AB81AF0">
+          <End Role="Asignatura" Type="Self.Asignatura" Multiplicity="0..1" />
+          <End Role="imparte" Type="Self.imparte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asignatura">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="imparte">
+              <PropertyRef Name="id_materia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__cursa__id_materi__4CA06362">
+          <End Role="integrante" Type="Self.integrante" Multiplicity="0..1" />
+          <End Role="cursa" Type="Self.cursa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="integrante">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="cursa">
+              <PropertyRef Name="id_estudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__imparte__id_mate__49C3F6B7">
+          <End Role="profesor" Type="Self.profesor" Multiplicity="0..1" />
+          <End Role="imparte" Type="Self.imparte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="profesor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="imparte">
+              <PropertyRef Name="id_profesor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Examen_ParcialEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Asignaturas" EntityType="Self.Asignatura" />
+          <EntitySet Name="integrantes" EntityType="Self.integrante" />
+          <EntitySet Name="profesors" EntityType="Self.profesor" />
+          <EntitySet Name="cursas" EntityType="Self.cursa" />
+          <EntitySet Name="impartes" EntityType="Self.imparte" />
+          <AssociationSet Name="FK__cursa__id_materi__4D94879B" Association="Self.FK__cursa__id_materi__4D94879B">
+            <End Role="Asignatura" EntitySet="Asignaturas" />
+            <End Role="cursa" EntitySet="cursas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__imparte__id_mate__4AB81AF0" Association="Self.FK__imparte__id_mate__4AB81AF0">
+            <End Role="Asignatura" EntitySet="Asignaturas" />
+            <End Role="imparte" EntitySet="impartes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__cursa__id_materi__4CA06362" Association="Self.FK__cursa__id_materi__4CA06362">
+            <End Role="integrante" EntitySet="integrantes" />
+            <End Role="cursa" EntitySet="cursas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__imparte__id_mate__49C3F6B7" Association="Self.FK__imparte__id_mate__49C3F6B7">
+            <End Role="profesor" EntitySet="profesors" />
+            <End Role="imparte" EntitySet="impartes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Examen_ParcialModelStoreContainer" CdmEntityContainer="Examen_ParcialEntities3">
+          <EntitySetMapping Name="Asignaturas">
+            <EntityTypeMapping TypeName="Examen_ParcialModel.Asignatura">
+              <MappingFragment StoreEntitySet="Asignatura">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Asignatura1" ColumnName="Asignatura" />
+                <ScalarProperty Name="Creditos" ColumnName="Creditos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="integrantes">
+            <EntityTypeMapping TypeName="Examen_ParcialModel.integrante">
+              <MappingFragment StoreEntitySet="integrante">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Matricula" ColumnName="Matricula" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="profesors">
+            <EntityTypeMapping TypeName="Examen_ParcialModel.profesor">
+              <MappingFragment StoreEntitySet="profesor">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cursas">
+            <EntityTypeMapping TypeName="Examen_ParcialModel.cursa">
+              <MappingFragment StoreEntitySet="cursa">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_estudiante" ColumnName="id_estudiante" />
+                <ScalarProperty Name="id_materia" ColumnName="id_materia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="impartes">
+            <EntityTypeMapping TypeName="Examen_ParcialModel.imparte">
+              <MappingFragment StoreEntitySet="imparte">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_profesor" ColumnName="id_profesor" />
+                <ScalarProperty Name="id_materia" ColumnName="id_materia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
