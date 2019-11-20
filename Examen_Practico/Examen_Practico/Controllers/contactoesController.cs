@@ -15,8 +15,16 @@ namespace Examen_Practico.Controllers
         private Examen_ParcialEntities3 db = new Examen_ParcialEntities3();
 
         // GET: contactoes
-        public ActionResult Index()
+        public ActionResult Index(String busqueda)
         {
+            var evento = from f in db.contactos select f;
+            if (!String.IsNullOrEmpty(busqueda))
+            {
+                evento = evento.Where(j => j.nombre.Contains(busqueda) || j.celular.Contains(busqueda));
+                return View(evento);
+            }
+
+
             return View(db.contactos.ToList());
         }
 

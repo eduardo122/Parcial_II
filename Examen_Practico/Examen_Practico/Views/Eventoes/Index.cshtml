@@ -10,6 +10,22 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class=" container">
+        <hr />
+        @Html.TextArea("fecha", "", new { @class = "form-control" }) <br />
+
+        <div class="form-group">
+            <div class="">
+                <input type="submit" value="Buscar Evento" class="btn  btn-block btn-success " />
+            </div>
+        </div>
+    </div>
+    }
+
 </p>
 <table class="table">
     <tr>

@@ -15,8 +15,16 @@ namespace Examen_Practico.Controllers
         private Examen_ParcialEntities3 db = new Examen_ParcialEntities3();
 
         // GET: Eventoes
-        public ActionResult Index()
+        public ActionResult Index(String fecha)
         {
+            var evento = from f in db.Eventos select f;
+            if (!String.IsNullOrEmpty(fecha))
+            {
+                evento = evento.Where(j => j.fecha.Contains(fecha) || j.evento1.Contains(fecha));
+                return View(evento);
+            }
+
+
             return View(db.Eventos.ToList());
         }
 
@@ -30,6 +38,7 @@ namespace Examen_Practico.Controllers
             Evento evento = db.Eventos.Find(id);
             if (evento == null)
             {
+                
                 return HttpNotFound();
             }
             return View(evento);
@@ -123,5 +132,6 @@ namespace Examen_Practico.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
 }
