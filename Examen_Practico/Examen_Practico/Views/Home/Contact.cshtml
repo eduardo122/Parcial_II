@@ -12,19 +12,20 @@
         <th>Total de creditos</th>
         <th>Profesor</th>
     </tr>
-    @foreach(var item in ViewData["AsignaturasCursadas"] as IEnumerable<Examen_Practico.Models.AsignaturasCursadas>)
+    @foreach (var item in ViewData["AsignaturasCursadas"] as IEnumerable<Examen_Practico.Models.AsignaturasCursadas>)
     {
-    <tr>
+        <tr>
 
-        <td>@item.listaIntegrantes.Nombre  @item.listaIntegrantes.Apellido </td>
-        <td>@item.listaAsignaturas.Asignatura1</td>
-        <td>@item.listaAsignaturas.Creditos</td>
-        <td>@item.listaProfesores.Nombre @item.listaProfesores.Apellido</td>
-    </tr>
+            <td>@item.listaIntegrantes.Nombre  @item.listaIntegrantes.Apellido </td>
+            <td>@item.listaAsignaturas.Asignatura1</td>
+            <td>@item.listaAsignaturas.Creditos</td>
+            <td>@item.listaProfesores.Nombre @item.listaProfesores.Apellido</td>
+        </tr>
 
     }
 
 
-
-
 </table>
+
+
+@Html.ActionLink("Volver", "Asignaturas", "Home")
