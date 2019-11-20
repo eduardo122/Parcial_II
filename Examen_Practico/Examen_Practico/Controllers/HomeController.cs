@@ -175,23 +175,6 @@ namespace Examen_Practico.Controllers
         }
 
 
-        public ActionResult Datatable()
-        {
-            DataTable dt = new DataTable();
-
-            try
-            {
-                dt = (DataTable)Session["tmpdata"];
-            }
-            catch (Exception ex)
-            {
-
-            }
-
-            return View(dt);
-
-        }
-
        
     }
 }

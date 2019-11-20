@@ -177,6 +177,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\contactoesController.cs" />
+    <Compile Include="Controllers\EventoesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -187,7 +189,13 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AsignaturasCursadas.cs" />
+    <Compile Include="Models\contacto.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\cursa.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Evento.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
@@ -296,8 +304,17 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Asignaturas.cshtml" />
     <Content Include="Views\Home\Agenda.cshtml" />
-    <Content Include="Views\Home\Datatable.cshtml" />
     <Content Include="Views\Home\Inicio.cshtml" />
+    <Content Include="Views\contactoes\Create.cshtml" />
+    <Content Include="Views\contactoes\Delete.cshtml" />
+    <Content Include="Views\contactoes\Details.cshtml" />
+    <Content Include="Views\contactoes\Edit.cshtml" />
+    <Content Include="Views\contactoes\Index.cshtml" />
+    <Content Include="Views\Eventoes\Create.cshtml" />
+    <Content Include="Views\Eventoes\Delete.cshtml" />
+    <Content Include="Views\Eventoes\Details.cshtml" />
+    <Content Include="Views\Eventoes\Edit.cshtml" />
+    <Content Include="Views\Eventoes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

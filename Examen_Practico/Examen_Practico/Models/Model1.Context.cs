@@ -30,5 +30,7 @@ namespace Examen_Practico.Models
         public virtual DbSet<profesor> profesors { get; set; }
         public virtual DbSet<cursa> cursas { get; set; }
         public virtual DbSet<imparte> impartes { get; set; }
+        public virtual DbSet<contacto> contactos { get; set; }
+        public virtual DbSet<Evento> Eventos { get; set; }
     }
 }

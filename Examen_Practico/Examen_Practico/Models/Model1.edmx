@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Examen_ParcialModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Examen_ParcialModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Asignatura">
           <Key>
             <PropertyRef Name="id" />
@@ -12,6 +12,18 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Asignatura" Type="varchar" MaxLength="35" />
           <Property Name="Creditos" Type="int" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Examen_Parcial.dbo.contactos' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="contactos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="40" />
+          <Property Name="celular" Type="varchar" MaxLength="40" />
+          <Property Name="email" Type="varchar" MaxLength="40" />
+          <Property Name="direccion" Type="varchar" MaxLength="70" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'Examen_Parcial.dbo.cursa' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -22,6 +34,17 @@ advertencia 6002: La tabla o vista 'Examen_Parcial.dbo.cursa' no tiene definida 
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_estudiante" Type="int" />
           <Property Name="id_materia" Type="int" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Examen_Parcial.dbo.Eventos' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Eventos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="evento" Type="varchar" MaxLength="80" />
+          <Property Name="fecha" Type="varchar" MaxLength="50" />
+          <Property Name="hora" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'Examen_Parcial.dbo.imparte' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -102,12 +125,29 @@ advertencia 6002: La tabla o vista 'Examen_Parcial.dbo.imparte' no tiene definid
           <EntitySet Name="Asignatura" EntityType="Self.Asignatura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="integrante" EntityType="Self.integrante" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="profesor" EntityType="Self.profesor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="contactos" EntityType="Self.contactos" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [contactos].[id] AS [id], 
+    [contactos].[nombre] AS [nombre], 
+    [contactos].[celular] AS [celular], 
+    [contactos].[email] AS [email], 
+    [contactos].[direccion] AS [direccion]
+    FROM [dbo].[contactos] AS [contactos]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="cursa" EntityType="Self.cursa" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [cursa].[id] AS [id], 
     [cursa].[id_estudiante] AS [id_estudiante], 
     [cursa].[id_materia] AS [id_materia]
     FROM [dbo].[cursa] AS [cursa]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Eventos" EntityType="Self.Eventos" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Eventos].[id] AS [id], 
+    [Eventos].[evento] AS [evento], 
+    [Eventos].[fecha] AS [fecha], 
+    [Eventos].[hora] AS [hora]
+    FROM [dbo].[Eventos] AS [Eventos]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="imparte" EntityType="Self.imparte" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -133,8 +173,7 @@ advertencia 6002: La tabla o vista 'Examen_Parcial.dbo.imparte' no tiene definid
             <End Role="imparte" EntitySet="imparte" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Examen_ParcialModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -257,7 +296,28 @@ advertencia 6002: La tabla o vista 'Examen_Parcial.dbo.imparte' no tiene definid
             <End Role="profesor" EntitySet="profesors" />
             <End Role="imparte" EntitySet="impartes" />
           </AssociationSet>
+          <EntitySet Name="contactos" EntityType="Examen_ParcialModel.contacto" />
+          <EntitySet Name="Eventos" EntityType="Examen_ParcialModel.Evento" />
         </EntityContainer>
+        <EntityType Name="contacto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="celular" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Evento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="evento1" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="fecha" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="hora" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -307,6 +367,27 @@ advertencia 6002: La tabla o vista 'Examen_Parcial.dbo.imparte' no tiene definid
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="id_profesor" ColumnName="id_profesor" />
                 <ScalarProperty Name="id_materia" ColumnName="id_materia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contactos">
+            <EntityTypeMapping TypeName="Examen_ParcialModel.contacto">
+              <MappingFragment StoreEntitySet="contactos">
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="celular" ColumnName="celular" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Eventos">
+            <EntityTypeMapping TypeName="Examen_ParcialModel.Evento">
+              <MappingFragment StoreEntitySet="Eventos">
+                <ScalarProperty Name="hora" ColumnName="hora" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="evento1" ColumnName="evento" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
