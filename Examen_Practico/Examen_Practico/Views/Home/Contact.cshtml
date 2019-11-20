@@ -4,22 +4,22 @@
 }
 <h2>@ViewBag.Title.</h2>
 
-<table border="1">
+<table border="1" class="table table-striped">
     <tr>
 
-        <th>Integrante</th>
-        <th>Asignatura</th>
-        <th>Total de creditos</th>
-        <th>Profesor</th>
+        <th class="text-center">Integrante</th>
+        <th class="text-center">Asignatura</th>
+        <th class="text-center">Total de creditos</th>
+        <th class="text-center">Profesor</th>
     </tr>
     @foreach (var item in ViewData["AsignaturasCursadas"] as IEnumerable<Examen_Practico.Models.AsignaturasCursadas>)
     {
         <tr>
 
-            <td>@item.listaIntegrantes.Nombre  @item.listaIntegrantes.Apellido </td>
-            <td>@item.listaAsignaturas.Asignatura1</td>
-            <td>@item.listaAsignaturas.Creditos</td>
-            <td>@item.listaProfesores.Nombre @item.listaProfesores.Apellido</td>
+            <td class="text-center"> @item.listaIntegrantes.Nombre  @item.listaIntegrantes.Apellido </td>
+            <td class="text-center">@item.listaAsignaturas.Asignatura1</td>
+            <td class="text-center">@item.listaAsignaturas.Creditos</td>
+            <td class="text-center"> @item.listaProfesores.Nombre @item.listaProfesores.Apellido</td>
         </tr>
 
     }

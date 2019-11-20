@@ -64,7 +64,7 @@ namespace Examen_Practico.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("File", "This file format is not supported");
+                        ModelState.AddModelError("File", "Este formato de archivo no es compatible");
                         return View();
                     }
                     int fieldcount = reader.FieldCount;
@@ -95,7 +95,7 @@ namespace Examen_Practico.Controllers
                     }
                     catch (Exception ex)
                     {
-                        ModelState.AddModelError("File", "Unable to Upload file!");
+                        ModelState.AddModelError("File", "No se puede subir el archivo");
                         return View();
                     }
 
@@ -109,7 +109,7 @@ namespace Examen_Practico.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("File", "Please Upload Your file");
+                    ModelState.AddModelError("File", "Por favor cargue un archivo");
                 }
             }
             return View();

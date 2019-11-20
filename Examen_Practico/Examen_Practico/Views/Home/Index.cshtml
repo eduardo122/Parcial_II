@@ -49,7 +49,7 @@
 @using (Html.BeginForm("Index", "Home", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="info2">
-        <h2>Browse File for uploading</h2>
+        <h2>Seleccione el archivo de Excel</h2>
         @Html.AntiForgeryToken()
 
         <div class="form-group" name="Fichier1">
@@ -59,7 +59,7 @@
         </div>
 
         <div class="form-group">
-            <input type="submit" value="Upload" class="btn btn-default" />
+            <input type="submit" value="Cargar Archivo" class="btn btn-default" />
         </div>
 
 
