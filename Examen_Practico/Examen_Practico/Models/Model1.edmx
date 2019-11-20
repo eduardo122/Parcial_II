@@ -13,8 +13,6 @@
           <Property Name="Asignatura" Type="varchar" MaxLength="35" />
           <Property Name="Creditos" Type="int" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Examen_Parcial.dbo.contactos' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="contactos">
           <Key>
             <PropertyRef Name="id" />
@@ -35,8 +33,6 @@ advertencia 6002: La tabla o vista 'Examen_Parcial.dbo.cursa' no tiene definida 
           <Property Name="id_estudiante" Type="int" />
           <Property Name="id_materia" Type="int" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Examen_Parcial.dbo.Eventos' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Eventos">
           <Key>
             <PropertyRef Name="id" />
@@ -123,31 +119,16 @@ advertencia 6002: La tabla o vista 'Examen_Parcial.dbo.imparte' no tiene definid
         </Association>
         <EntityContainer Name="Examen_ParcialModelStoreContainer">
           <EntitySet Name="Asignatura" EntityType="Self.Asignatura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="contactos" EntityType="Self.contactos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Eventos" EntityType="Self.Eventos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="integrante" EntityType="Self.integrante" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="profesor" EntityType="Self.profesor" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="contactos" EntityType="Self.contactos" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [contactos].[id] AS [id], 
-    [contactos].[nombre] AS [nombre], 
-    [contactos].[celular] AS [celular], 
-    [contactos].[email] AS [email], 
-    [contactos].[direccion] AS [direccion]
-    FROM [dbo].[contactos] AS [contactos]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="cursa" EntityType="Self.cursa" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [cursa].[id] AS [id], 
     [cursa].[id_estudiante] AS [id_estudiante], 
     [cursa].[id_materia] AS [id_materia]
     FROM [dbo].[cursa] AS [cursa]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Eventos" EntityType="Self.Eventos" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Eventos].[id] AS [id], 
-    [Eventos].[evento] AS [evento], 
-    [Eventos].[fecha] AS [fecha], 
-    [Eventos].[hora] AS [hora]
-    FROM [dbo].[Eventos] AS [Eventos]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="imparte" EntityType="Self.imparte" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
